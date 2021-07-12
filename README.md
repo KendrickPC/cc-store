@@ -38,10 +38,7 @@ const changeItemQuantity = (name, newQuantity) => {
 1e. Export this function.
 ```javascript
 export const changeItemQuantity = (name, newQuantity) => {
-  return {
-    type: 'cart/changeItemQuantity',
-    payload: { name, newQuantity }
-  }
+  ...
 };
 ```
 
@@ -89,28 +86,56 @@ Open up store.js and, at the top of the file, import the two functions from the 
 import { createStore, combineReducers } from 'redux';
 ```
 
-```javascript
+5a. Add three import statements to store.js, one for each of the slice reducers:
+  inventoryReducer
+  cartReducer
+  currencyFilterReducer
 
+```javascript
+import { inventoryReducer } from '../features/inventory/inventorySlice.js';
+import { cartReducer } from '../features/cart/cartSlice.js';
+import { currencyFilterReducer } from '../features/currencyFilter/currencyFilterSlice.js';
 ```
 
-```javascript
+### Now that you have imported all of the resources, you can combine the various slice reducers into a rootReducer using the combineReducers method. Then that rootReducer can be used to create the store object.
 
+6a. First, call combineReducers() with an object as the argument.
+```javascript
+combineReducers({})
 ```
 
+6b. The object passed to combineReducers() should pair each slice name with the appropriate slice reducer
+##### Note: https://redux.js.org/api/combinereducers  Check documentation for how reducers are used. My google search was: combinereducers redux. My three keys are inventory, cart, and currentFilter
 ```javascript
-
+combineReducers({
+  inventory: inventoryReducer,
+  cart: cartReducer,
+  currentFilter: currencyFilterReducer,
+})
 ```
-
+6c. Next, pass the entire combineReducers({...}) function call as an argument to createStore().
 ```javascript
-
+createStore(combineReducers({
+  inventory: inventoryReducer,
+  cart: cartReducer,
+  currentFilter: currencyFilterReducer,
+}))
 ```
-
+6d. Finally, assign the returned value from createStore() to a new variable called store.
 ```javascript
-
+const store = createStore(combineReducers({
+  inventory: inventoryReducer,
+  cart: cartReducer,
+  currentFilter: currencyFilterReducer,
+}));
 ```
-
+6e. 
 ```javascript
-
+export const store = createStore(combineReducers({
+  inventory: inventoryReducer,
+  cart: cartReducer,
+  currentFilter: currencyFilterReducer,
+}));
 ```
 
 ```javascript
