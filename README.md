@@ -138,16 +138,23 @@ export const store = createStore(combineReducers({
 }));
 ```
 
+7a. At the top of the file, import the store from store.js.
+##### Note: in the index.js file, import store.js
 ```javascript
-
+import { store } from './app/store.js'
 ```
-
+8a. Pass the current state of the store as a prop called state to the <App /> component
 ```javascript
-
+<App 
+  state={store.getState()}
+/>
 ```
-
+8b. Pass the store.dispatch method as a prop called dispatch to the <App /> component
 ```javascript
-
+  <App 
+    state={state.getState()}
+    dispatch={store.dispatch}
+  />
 ```
 
 ```javascript
