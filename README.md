@@ -161,10 +161,17 @@ import { store } from './app/store.js'
 
 ![8c Checkpoint. Products unavailble.](./products-unavailable.png "Text to show on mouseover")
 
-```javascript
+##### The products are not being rendered yet because the product data is only fetched AFTER the page first loads. If you take a look at src/features/inventory/Inventory.js you will see that this component dispatches a loadData() action upon mounting. 
 
+##### You need to make sure that when any state changes occur, the components are re-rendered with the most up-to-date data.
+
+9a. At the bottom of index.js subscribe the render function to changes to the state of the store.
+```javascript
+store.subscribe(render)
 ```
 
+
+9b. Run your program and you should see the full inventory rendered to the screen!
 ```javascript
 
 ```

@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import { App } from './app/App.js';
+import { store } from './app/store.js';
 // Import the store here.
 
 // Pass state and dispatch props to the <App /> component.
@@ -17,3 +18,4 @@ const render = () => {
 render();
 
 // Subscribe render to the store.
+store.subscribe(render);
