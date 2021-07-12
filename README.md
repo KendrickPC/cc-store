@@ -80,12 +80,13 @@ return {
   ...cart,
   [name]: updatedItem
 }
-
-
 ```
+4a. With the reducers and action creators ready to go, it’s time to set up the store.
 
+Open up store.js and, at the top of the file, import the two functions from the 'redux' package used to create the store object: createStore and combineReducers.
+##### Note, in store.js file, at the top, import as follows:
 ```javascript
-
+import { createStore, combineReducers } from 'redux';
 ```
 
 ```javascript
