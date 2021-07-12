@@ -8,7 +8,8 @@ import { App } from './app/App.js';
 const render = () => {
   ReactDOM.render(
     <App 
-      
+    state={state.getState()}
+    dispatch={store.dispatch}
     />,
     document.getElementById('root')
   )

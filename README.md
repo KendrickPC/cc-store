@@ -157,6 +157,10 @@ import { store } from './app/store.js'
   />
 ```
 
+8c. Run your program and you should see the currency buttons rendered at the top of the screen and the text “Sorry, no products are currently available…”.
+
+![8c Checkpoint. Products unavailble.](./products-unavailable.png "Text to show on mouseover")
+
 ```javascript
 
 ```
