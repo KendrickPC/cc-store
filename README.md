@@ -1,4 +1,4 @@
-# CodeCademy Store project
+# CC Store project
 
 ### The first step towards completing the cart feature will be to define the actions that can change the state.cart slice, and to handle them in the reducer. Open up cartSlice.js where you will find the addItem() action creator as well as the reducer cartReducer() which can already handle a 'cart/addItem' action. In addition to adding items to the cart, the user should be able to modify the quantity of each item in their cart. First, you will need to create an action creator for this kind of action object.
 
@@ -231,14 +231,26 @@ keys.forEach((key, index) => {
 })
 ```
 
+### Try adding items to your cart. They now show up! However, there are a few things wrong. Most obviously, the cart total is not showing up properly.
+
+### At the top of the Cart.js file, the calculateTotal helper function is imported from the src/utilities/utilities.js file. As the name suggests, you can use this function to calculate the cart’s total!
+
+13a. Call calculateTotal() with the cart and currencyFilter prop values as arguments and store the result in the variable total.
+Note: Change const total = 0 to let total = 0;
 ```javascript
+let total = 0;
+total = calculateTotal(cart, currencyFilter);
+// a second option would be to just overwrite const total = 0 with the following:
+const total = calculateTotal(cart, currencyFilter);
 
 ```
-
+14a. At the top of Cart.js, import the changeItemQuantity() action creator that you made earlier in this project.
 ```javascript
-
+import { changeItemQuantity } from './cartSlice.js';
 ```
+15a. At the end of onInputChangeHandler()… Use the dispatch method from the props to dispatch a changeItemQuantity() action with name as the first argument and newQuantity as the second.
 
+##### Note: I created a local copy of this project onto my computer. Then I used VS CODE's search feature and typed in "dispatch". I checked all the different implementations of dispatch and decided on the CurrencyFilter.js implementation as the format that I want to use. Inventory.js and SearchTerm.js have similar implementations of the dispatch function they are asking for here.
 ```javascript
 
 ```
