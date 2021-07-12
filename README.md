@@ -67,10 +67,20 @@ const updatedItem = {};
 2b. Copy the contents of itemToUpdate into updatedItem but set the quantity property to the value of newQuantity.
 
 ```javascript
-
+const updatedItem = {
+  ...itemToUpdate,
+  quantity: newQuantity,
+}
 ```
 
+3a. The final step is to return the new cart state with updatedItem included.
+##### Note: in cartSlice.js, reference case for 'cart/addItem' return object. Follow that pattern.
 ```javascript
+return {
+  ...cart,
+  [name]: updatedItem
+}
+
 
 ```
 
