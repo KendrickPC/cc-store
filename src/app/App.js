@@ -5,6 +5,7 @@ import { CurrencyFilter } from '../features/currencyFilter/CurrencyFilter.js';
 // Import the Cart component here.
 import { Cart } from '../features/cart/Cart.js';
 // Render the Cart component below <Inventory />
+import { SearchTerm } from '../features/searchTerm/SearchTerm.js';
 export const App = (props) => {
 
   const { state, dispatch } = props;
@@ -17,7 +18,7 @@ export const App = (props) => {
       />
 
       <Inventory
-        inventory={state.inventory}
+        inventory={getFilteredItems(state.inventory, state.searchTerm)}
         currencyFilter={state.currencyFilter}
         dispatch={dispatch}
       />
@@ -28,6 +29,16 @@ export const App = (props) => {
         dispatch={dispatch}
       />
 
+      <SearchTerm
+        searchTerm={state.searchTerm}
+        dispatch={dispatch}
+      />
+
     </div>
   );
 };
+
+// Implement the function below into the Inventory component. 
+function getFilteredItems(items, searchTerm) {
+  return items.filter(items => items.name.toLowerCase().includes(searchTerm.toLowerCase()));
+}

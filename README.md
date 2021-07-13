@@ -250,88 +250,104 @@ import { changeItemQuantity } from './cartSlice.js';
 ```
 15a. At the end of onInputChangeHandler()… Use the dispatch method from the props to dispatch a changeItemQuantity() action with name as the first argument and newQuantity as the second.
 
-##### Note: I created a local copy of this project onto my computer. Then I used VS CODE's search feature and typed in "dispatch". I checked all the different implementations of dispatch and decided on the CurrencyFilter.js implementation as the format that I want to use. Inventory.js and SearchTerm.js have similar implementations of the dispatch function they are asking for here.
+##### Note: Because the dispatch redux documentation was not helpful for me (in this instance), I created a local copy of this project onto my computer. Then I used VS CODE's search feature and typed in "dispatch". I checked all the different implementations of dispatch and decided on the CurrencyFilter.js implementation as the format that I want to use. Inventory.js and SearchTerm.js also have similar implementations of the dispatch function they are asking for here.
 ```javascript
-
+dispatch(changeItemQuantity(name, newQuantity));
 ```
 
-```javascript
+### Add a search feature (like in the Recipes app) to filter the products shown in the inventory.
 
+### The src/features/searchTerm/ directory has already been created for you with a completed SearchTerm.js component file. 
+
+16a. Complete searchTermSlice.js by creating and exporting the slice reducer and action creators. Note: Open the hints tab for the steps of implementation.
+
+16a. Create a function called searchTermReducer that can handle the following action types:
+  16a1. * 'searchTerm/setSearchTerm'
+  16a2. * 'searchTerm/clearSearchTerm'
+  16a3. * Don't forget to set the initial state and return state by default!
+Note: The initial state of the search term should be an empty string.
+```javascript
+let initialState = "";
+export const searchTermReducer = ( state=initialState, action) => {
+  switch (action.type) {
+    case 'searchTerm/setSearchTerm': {
+      return action.payload
+    }
+    case 'searchTerm/clearSearchTerm': {
+      return "";
+    }
+    default: {
+      return initialState = ""
+    }
+  }
+};
+```
+16a. Create a function called setSearchTerm
+  16a4. It has one parameter, term
+  16a5. It returns an action object whose payload is the term value
+  16a6. See SearchTerm.js for how this will be used. Note: searchTerm and dispatch
+```javascript
+export const setSearchTerm = (term) => {
+  return {
+    type: 'searchTerm/setSearchTerm',
+    payload: term
+  }
+}
+```
+16a. Create a function called clearSearchTerm
+  16a7. It returns an action object with no payload
+  16a8. See SearchTerm.js for how this will be used.
+```javascript
+export const clearSearchTerm = () => {
+  return {
+    type: 'searchTerm/clearSearchTerm'
+  }
+}
+```
+16b. Add the slice reducer to the rootReducer for the store.
+Note: in store.js, import searchTermReducer from searchTermSlice.js
+```javascript
+import { searchTermReducer } from '../features/searchTerm/searchTermSlice.js';
+export const store = createStore(combineReducers({
+  ...,
+  searchTerm: searchTermReducer
+}));
 ```
 
+16c. Render the component in the <App /> with the appropriate data.
+Note: Import searchTerm from searchTerm.js at the top of App.js. Also, where we place the <SearchTerm /> component is where it will render, so I put it after <Currency /> but before <Inventory />. 
 ```javascript
-
+import { SearchTerm } from '../features/searchTerm/SearchTerm.js';
+<Currency />
+<SearchTerm
+  searchTerm={state.searchTerm}
+  dispatch={dispatch}
+/>
+<Inventory />
 ```
-
+16d. To filter out the inventory values, you can use this function:
+Note: Place the following getFilteredItems function inside of App.js at the bottom of the file.
 ```javascript
-
+function getFilteredItems(items, searchTerm) {
+  return items.filter(items => items.name.toLowerCase().includes(searchTerm.toLowerCase()));
+}
 ```
-
+16e. The search term now works, but the inventory of items is not filtered out when using our SearchTerm component. Now, in our <Inventory /> component, replace the state.inventory with a call to getFilteredItems
 ```javascript
-
+// Implement the function below into the Inventory component. 
+<Inventory
+  inventory={getFilteredItems(items, searchTerm)}
+  ...
+  ...
+/>
 ```
-
+16f. For the inputs, in the getFilteredItems function, (in App.js Inventory component, ), consider what to match items and searchTerm with. The current state of items and the current state of searchTerm is what we are going for. 
 ```javascript
-
+// Implement the function below into the Inventory component. 
+<Inventory
+  inventory={getFilteredItems(state.inventory, state.searchTerm)}
+  ...
+  ...
+/>
 ```
-
-```javascript
-
-```
-
-```javascript
-
-```
-
-```javascript
-
-```
-
-```javascript
-
-```
-
-```javascript
-
-```
-
-```javascript
-
-```
-
-```javascript
-
-```
-
-```javascript
-
-```
-
-```javascript
-
-```
-
-```javascript
-
-```
-
-```javascript
-
-```
-
-```javascript
-
-```
-
-```javascript
-
-```
-
-```javascript
-
-```
-
-```javascript
-
-```
-
+Now check the SearchTerm with by filter out "tee" and we will see three t-shirts. 

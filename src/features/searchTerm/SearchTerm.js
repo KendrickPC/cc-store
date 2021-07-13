@@ -40,3 +40,4 @@ export const SearchTerm = (props) => {
     </div>
   );
 };
+
